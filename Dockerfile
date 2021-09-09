@@ -1,25 +1,13 @@
 FROM ubuntu:latest as build
 ENV DEBIAN_FRONTEND=noninteractive
 RUN set +ex && \
-rm -f /etc/apt/sources.list && touch /etc/apt/sources.list && \
-echo "deb [arch=amd64] http://mirror.yandex.ru/ubuntu/ focal main restricted" | tee /etc/apt/sources.list && \
-echo "deb [arch=amd64] http://mirror.yandex.ru/ubuntu/ focal-updates main restricted" | tee -a /etc/apt/sources.list && \
-echo "deb [arch=amd64] http://mirror.yandex.ru/ubuntu/ focal universe" | tee -a /etc/apt/sources.list && \
-echo "deb [arch=amd64] http://mirror.yandex.ru/ubuntu/ focal-updates universe" | tee -a /etc/apt/sources.list && \
-echo "deb [arch=amd64] http://mirror.yandex.ru/ubuntu/ focal multiverse" | tee -a /etc/apt/sources.list && \
-echo "deb [arch=amd64] http://mirror.yandex.ru/ubuntu/ focal-updates multiverse" | tee -a /etc/apt/sources.list && \
-echo "deb [arch=amd64] http://mirror.yandex.ru/ubuntu/ focal-backports main restricted universe multiverse" | tee -a /etc/apt/sources.list && \
-echo "deb [arch=amd64] http://security.ubuntu.com/ubuntu focal-security main restricted" | tee -a /etc/apt/sources.list && \
-echo "deb [arch=amd64] http://security.ubuntu.com/ubuntu focal-security universe" | tee -a /etc/apt/sources.list && \
-echo "deb [arch=amd64] http://security.ubuntu.com/ubuntu focal-security multiverse" | tee -a /etc/apt/sources.list
-RUN set +ex && \
 apt update && \
 apt dist-upgrade -y && \
 apt install -y autoconf automake autotools-dev binutils build-essential cython cython3 g++ git libc-ares-dev libcunit1-dev libev4 libev-dev libevent-dev libjansson-dev libjemalloc-dev libspdylay-dev libssl-dev libsystemd-dev libtool libxml2-dev make pkg-config python3.8-dev python3.8-distutils python3-dev python3-setuptools python-setuptools zlib1g-dev
 RUN set +ex && \
 git clone https://github.com/nghttp2/nghttp2.git && \
 cd nghttp2 && \
-git submodule update --init 
+git submodule update --init
 RUN set +ex && \
 cd nghttp2 && \
 autoreconf -i && \
@@ -31,18 +19,6 @@ make -j $(nproc)
 FROM ubuntu:latest as packetdrill
 ENV DEBIAN_FRONTEND=noninteractive
 RUN set +ex && \
-rm -f /etc/apt/sources.list && touch /etc/apt/sources.list && \
-echo "deb [arch=amd64] http://mirror.yandex.ru/ubuntu/ focal main restricted" | tee /etc/apt/sources.list && \
-echo "deb [arch=amd64] http://mirror.yandex.ru/ubuntu/ focal-updates main restricted" | tee -a /etc/apt/sources.list && \
-echo "deb [arch=amd64] http://mirror.yandex.ru/ubuntu/ focal universe" | tee -a /etc/apt/sources.list && \
-echo "deb [arch=amd64] http://mirror.yandex.ru/ubuntu/ focal-updates universe" | tee -a /etc/apt/sources.list && \
-echo "deb [arch=amd64] http://mirror.yandex.ru/ubuntu/ focal multiverse" | tee -a /etc/apt/sources.list && \
-echo "deb [arch=amd64] http://mirror.yandex.ru/ubuntu/ focal-updates multiverse" | tee -a /etc/apt/sources.list && \
-echo "deb [arch=amd64] http://mirror.yandex.ru/ubuntu/ focal-backports main restricted universe multiverse" | tee -a /etc/apt/sources.list && \
-echo "deb [arch=amd64] http://security.ubuntu.com/ubuntu focal-security main restricted" | tee -a /etc/apt/sources.list && \
-echo "deb [arch=amd64] http://security.ubuntu.com/ubuntu focal-security universe" | tee -a /etc/apt/sources.list && \
-echo "deb [arch=amd64] http://security.ubuntu.com/ubuntu focal-security multiverse" | tee -a /etc/apt/sources.list
-RUN set +ex && \
 apt update && \
 apt dist-upgrade -y && \
 apt install -y git bison flex binutils build-essential && \
@@ -53,18 +29,6 @@ make -j $(nproc)
 
 FROM ubuntu:latest as h2o-quicly
 ENV DEBIAN_FRONTEND=noninteractive
-RUN set +ex && \
-rm -f /etc/apt/sources.list && touch /etc/apt/sources.list && \
-echo "deb [arch=amd64] http://mirror.yandex.ru/ubuntu/ focal main restricted" | tee /etc/apt/sources.list && \
-echo "deb [arch=amd64] http://mirror.yandex.ru/ubuntu/ focal-updates main restricted" | tee -a /etc/apt/sources.list && \
-echo "deb [arch=amd64] http://mirror.yandex.ru/ubuntu/ focal universe" | tee -a /etc/apt/sources.list && \
-echo "deb [arch=amd64] http://mirror.yandex.ru/ubuntu/ focal-updates universe" | tee -a /etc/apt/sources.list && \
-echo "deb [arch=amd64] http://mirror.yandex.ru/ubuntu/ focal multiverse" | tee -a /etc/apt/sources.list && \
-echo "deb [arch=amd64] http://mirror.yandex.ru/ubuntu/ focal-updates multiverse" | tee -a /etc/apt/sources.list && \
-echo "deb [arch=amd64] http://mirror.yandex.ru/ubuntu/ focal-backports main restricted universe multiverse" | tee -a /etc/apt/sources.list && \
-echo "deb [arch=amd64] http://security.ubuntu.com/ubuntu focal-security main restricted" | tee -a /etc/apt/sources.list && \
-echo "deb [arch=amd64] http://security.ubuntu.com/ubuntu focal-security universe" | tee -a /etc/apt/sources.list && \
-echo "deb [arch=amd64] http://security.ubuntu.com/ubuntu focal-security multiverse" | tee -a /etc/apt/sources.list
 RUN set +ex && \
 apt update && \
 apt dist-upgrade -y && \
@@ -79,19 +43,6 @@ make -j $(nproc)
 
 FROM ubuntu:latest as oatpp
 ENV DEBIAN_FRONTEND=noninteractive
-RUN set +ex && \
-rm -f /etc/apt/sources.list && touch /etc/apt/sources.list && \
-echo "deb [arch=amd64] http://mirror.yandex.ru/ubuntu/ focal main restricted" | tee /etc/apt/sources.list && \
-echo "deb [arch=amd64] http://mirror.yandex.ru/ubuntu/ focal-updates main restricted" | tee -a /etc/apt/sources.list && \
-echo "deb [arch=amd64] http://mirror.yandex.ru/ubuntu/ focal universe" | tee -a /etc/apt/sources.list && \
-echo "deb [arch=amd64] http://mirror.yandex.ru/ubuntu/ focal-updates universe" | tee -a /etc/apt/sources.list && \
-echo "deb [arch=amd64] http://mirror.yandex.ru/ubuntu/ focal multiverse" | tee -a /etc/apt/sources.list && \
-echo "deb [arch=amd64] http://mirror.yandex.ru/ubuntu/ focal-updates multiverse" | tee -a /etc/apt/sources.list && \
-echo "deb [arch=amd64] http://mirror.yandex.ru/ubuntu/ focal-backports main restricted universe multiverse" | tee -a /etc/apt/sources.list && \
-echo "deb [arch=amd64] http://security.ubuntu.com/ubuntu focal-security main restricted" | tee -a /etc/apt/sources.list && \
-echo "deb [arch=amd64] http://security.ubuntu.com/ubuntu focal-security universe" | tee -a /etc/apt/sources.list && \
-echo "deb [arch=amd64] http://security.ubuntu.com/ubuntu focal-security multiverse" | tee -a /etc/apt/sources.list
-
 RUN set +ex && \
 apt update && \
 apt dist-upgrade -y && \
@@ -150,10 +101,6 @@ FROM golang:1.16.6-buster as hey
 RUN set +ex && \
 go get github.com/rakyll/hey
 
-
-#yandex tank stack
-#pandora
-
 FROM golang:1.16.6-buster as pandora
 RUN set +ex && \
 apt update && apt install -y git && \
@@ -162,21 +109,8 @@ cd pandora && \
 make deps && \
 go install
 
-
 FROM ubuntu:latest
 ENV DEBIAN_FRONTEND=noninteractive
-RUN set +ex && \
-rm -f /etc/apt/sources.list && touch /etc/apt/sources.list && \
-echo "deb [arch=amd64] http://mirror.yandex.ru/ubuntu/ focal main restricted" | tee /etc/apt/sources.list && \
-echo "deb [arch=amd64] http://mirror.yandex.ru/ubuntu/ focal-updates main restricted" | tee -a /etc/apt/sources.list && \
-echo "deb [arch=amd64] http://mirror.yandex.ru/ubuntu/ focal universe" | tee -a /etc/apt/sources.list && \
-echo "deb [arch=amd64] http://mirror.yandex.ru/ubuntu/ focal-updates universe" | tee -a /etc/apt/sources.list && \
-echo "deb [arch=amd64] http://mirror.yandex.ru/ubuntu/ focal multiverse" | tee -a /etc/apt/sources.list && \
-echo "deb [arch=amd64] http://mirror.yandex.ru/ubuntu/ focal-updates multiverse" | tee -a /etc/apt/sources.list && \
-echo "deb [arch=amd64] http://mirror.yandex.ru/ubuntu/ focal-backports main restricted universe multiverse" | tee -a /etc/apt/sources.list && \
-echo "deb [arch=amd64] http://security.ubuntu.com/ubuntu focal-security main restricted" | tee -a /etc/apt/sources.list && \
-echo "deb [arch=amd64] http://security.ubuntu.com/ubuntu focal-security universe" | tee -a /etc/apt/sources.list && \
-echo "deb [arch=amd64] http://security.ubuntu.com/ubuntu focal-security multiverse" | tee -a /etc/apt/sources.list
 RUN set -ex \
 apt-get update && apt-get dist-upgrade -y && \
 apt-get update && \
@@ -184,9 +118,9 @@ apt-get install -y git nmap curl wget apache2-utils libjemalloc-dev libev4 libss
 pip3 install httpstat && \
 wget -qP /usr/local/bin/rustbuster https://github.com/phra/rustbuster/releases/download/$(curl -s https://github.com/phra/rustbuster/releases | grep "rustbuster-v" | head -n1 | cut -d'/' -f6)/rustbuster-$(curl -s https://github.com/phra/rustbuster/releases | grep "rustbuster-v" | head -n1 | cut -d'/' -f6)-x86_64-unknown-linux-gnu && \
 #python3-pip
-rm -rf /var/lib/apt/lists/* 
+rm -rf /var/lib/apt/lists/*
 
-#http load generators 
+#http load generators
 COPY --from=build /nghttp2/ /nghttp2/
 COPY --from=oha /usr/local/cargo/bin/oha /usr/local/bin/oha
 COPY --from=drill /usr/local/cargo/bin/drill /usr/local/bin/drill
@@ -209,21 +143,6 @@ COPY --from=packetdrill /packetdrill /packedrill
 #ws
 COPY --from=oatpp /benchmark-websocket/ /benchmark-websocket/
 
-#
-# apt-get install -y software-properties-common && \
-# add-apt-repository -y ppa:deadsnakes/ppa && \
-# apt-get update && \
-# apt-get install -y python3.7 python3-pip && \
-
-# pip3 install --upgrade pip && \
-
-# pip3 install --upgrade setuptools && \
-# apt-get install -y python3-software-properties && \ 
-# python3.7 -m pip install https://api.github.com/repos/yandex/yandex-tank/tarball/master && \
-# add-apt-repository -y ppa:yandex-load/main && \
-# apt-get update &&  apt-get install -y phantom phantom-ssl && \
-
-#&& apt-get install -y libjemalloc-dev libev4 openssl-dev && \
 WORKDIR /nghttp2/src
 RUN set +ex && \
 ./h2load -h && \
@@ -233,7 +152,9 @@ goloris --help && \
 hey --help && \
 drill --version && \
 bombardier --version && \
-pandora --version 
+pandora --version
+
+WORKDIR /
 
 RUN set +ex && \
 curl -sfL https://raw.githubusercontent.com/aquasecurity/trivy/main/contrib/install.sh | sh -s -- -b /usr/local/bin && \
