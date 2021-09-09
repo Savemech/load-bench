@@ -8,11 +8,6 @@ RUN set +ex && \
 git clone https://github.com/nghttp2/nghttp2.git && \
 cd nghttp2 && \
 git submodule update --init
-
-RUN free -h && \
-nproc && \
-cat /proc/cpuinfo
-
 RUN set +ex && \
 cd nghttp2 && \
 autoreconf -i && \
