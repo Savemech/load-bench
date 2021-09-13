@@ -37,3 +37,11 @@ This Dockerfile provide image, that contains following tools
 - libjemalloc
 - iperf
 
+---
+# For futher advanced scenarios consider using
+https://k6.io/
+https://yandex.ru/dev/tank/
+https://jmeter.apache.org/
+https://gatling.io
+or some libraries like
+https://github.com/mhjort/clj-gatling
